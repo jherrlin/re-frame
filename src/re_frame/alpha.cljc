@@ -1036,7 +1036,16 @@
    interceptor chain. Any global interceptors you register are effectively
    prepending to this chain.
 
-   Global interceptors are run in the order that they are registered.
+   Global interceptors are run in the order that they are registered if `:order`
+   is not provided. `net-int?`, lowest first inceptors are first in queue, then
+   interceptors without `:order` and last `:order` with `pos-int?` lowest first.
+   Like this:
+   [{:id :a :order -1}
+    {:id :b :order -2}
+    {:id :c}
+    {:id :d}
+    {:id :e :order 100}
+    {:id :f :order 101}]
 
    Global interceptors are unique by :id. If a global interceptor with the same :id
    key as `interceptor` is already registered, `interceptor` will take its place in the
